@@ -37,20 +37,19 @@ if __name__ == "__main__":
         print("=============== 2 =================")
 
         # 3) obtain the prediction
-        # depending on your model, you may have to reshape frame
         # Resize frame thành kích thước (224, 224)
         resized_frame = cv2.resize(frame, (224, 224))
         resized_frame_expanded = np.expand_dims(resized_frame, axis=0)
         prediction = model(resized_frame_expanded, training=False)
-        # you may need then to process prediction to obtain a label of your data, depending on your model. Probably you'll have to apply an argmax to prediction to obtain a label.
+
         print("=============== 3 =================")
         predicted_weather = CATEGORIES[np.argmax(prediction)]
-        #percentage = prediction[np.argmax(prediction)]*100
+
         percentage = prediction.numpy()
         percentage = percentage.flatten()
         percentage = percentage[np.argmax(percentage)]*100
         print("$$$$$$$$$$$$$$$$$$$")
-        # 4) Adding the label on your frame
+        # 4) Adding the label on frame
         draw_label.__draw_label(frame, 'Label: {} {:.2f}%'.format(predicted_weather, percentage), (30, 30), (255, 255, 0))
         print("=============== 4 =================")
 
