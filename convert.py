@@ -2,10 +2,10 @@ import tensorflow as tf
 import pathlib
 
 # Load model
-model=tf.keras.models.load_model('F:\saved_model\ResNet50_Weather_epoch20.h5')
+model=tf.keras.models.load_model('F:/saved_model/ResNet50_Weather_epoch20.h5')
 
 # Đường dẫn tới thư mục chứa ảnh
-data_dir = "F:\CODE_PYCHARM\KhoaLuan\saved_model\DataSet\dataset2"
+data_dir = "F:/CODE_PYCHARM/KhoaLuan/saved_model/DataSet/dataset2"
 
 # Lấy danh sách các đường dẫn tới các tệp ảnh trong thư mục
 data_root = pathlib.Path(data_dir)
@@ -26,7 +26,7 @@ def representative_dataset_gen():
 
 
 # Define input shape for the model
-input_shape = (224, 224, 3)
+input_shape = (1, 224, 224, 3)
 
 # Convert the model to a TensorFlow Lite model
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
