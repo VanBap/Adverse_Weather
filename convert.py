@@ -2,7 +2,7 @@ import tensorflow as tf
 import pathlib
 
 # Load model
-model=tf.keras.models.load_model('F:\CODE_PYCHARM\KhoaLuan\saved_model\ResNet50_Weather_epoch20.h5')
+model=tf.keras.models.load_model('F:\saved_model\ResNet50_Weather_epoch20.h5')
 
 # Đường dẫn tới thư mục chứa ảnh
 data_dir = "F:\CODE_PYCHARM\KhoaLuan\saved_model\DataSet\dataset2"

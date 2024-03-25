@@ -14,7 +14,7 @@ import draw_label
 if __name__ == "__main__":
     # load model
     print("[INFO] loading model...")
-    model = tf.keras.models.load_model('F:\CODE_PYCHARM\KhoaLuan\saved_model/ResNet50_Weather_epoch20.h5')
+    model = tf.keras.models.load_model('F:\saved_model/ResNet50_Weather_epoch20.h5')
 
     # labels array
     CATEGORIES=['CLOUDY','FOG','RAINY','SANDY','SHINE','SNOWY', 'SUNRISE' ]
