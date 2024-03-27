@@ -3,10 +3,8 @@ import pathlib
 
 # Load model
 model=tf.keras.models.load_model('F:/saved_model/ResNet50_Weather_epoch20.h5')
-
 # Đường dẫn tới thư mục chứa ảnh
 data_dir = "F:/CODE_PYCHARM/KhoaLuan/saved_model/DataSet/dataset2"
-
 # Lấy danh sách các đường dẫn tới các tệp ảnh trong thư mục
 data_root = pathlib.Path(data_dir)
 all_image_paths = list(data_root.glob('*/*'))
@@ -33,11 +31,9 @@ converter = tf.lite.TFLiteConverter.from_keras_model(model)
 
 converter.optimizations = [tf.lite.Optimize.DEFAULT]
 converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
-
 # Cài đặt kích thước đầu vào và đầu ra của model tflite
 converter.inference_input_type = tf.uint8
 converter.inference_output_type = tf.uint8
-
 # Set input shape for the TFLite model
 converter.representative_dataset = representative_dataset_gen
 

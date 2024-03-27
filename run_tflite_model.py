@@ -2,7 +2,7 @@ from imutils.video import VideoStream
 from imutils.video import FPS
 from tensorflow import keras
 import numpy as np
-from tensorflow.keras.applications.resnet import preprocess_input
+from keras.applications.resnet import preprocess_input
 import tensorflow as tf
 import argparse
 import imutils
@@ -19,15 +19,32 @@ if __name__ == "__main__":
     # Get input and output details
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
+
+    # Resize Tensor Shape
+    interpreter.resize_tensor_input(input_details[0]['index'], (1, 244, 244, 3))
+    interpreter.resize_tensor_input(output_details[0]['index'], (1, 7))
+    interpreter.allocate_tensors()
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+    print("Input Shape:", input_details[0]['shape'])
+    print("Input Type:", input_details[0]['dtype'])
+    print("Output Shape:", output_details[0]['shape'])
+    print("Output Type:", output_details[0]['dtype'])
+
     height = input_details[0]['shape'][1]
     width = input_details[0]['shape'][2]
 
     print("input details", input_details)
     print("output details", output_details)
 
+    # Load labels from label.txt file
+    label_file = "F:/CODE_PYCHARM/KhoaLuan/saved_model/label.txt"
+    CATEGORIES = []
 
-    # Labels array
-    CATEGORIES=['CLOUDY','FOG','RAINY','SANDY','SHINE','SNOWY', 'SUNRISE' ]
+    with open(label_file, "r") as file:
+        for line in file:
+            category = line.strip()  # Remove any leading/trailing whitespace
+            CATEGORIES.append(category)
 
     # Open the device at the ID 0
     # Use the camera ID based on
@@ -61,9 +78,14 @@ if __name__ == "__main__":
 
         # Process output data as needed
         predicted_weather = CATEGORIES[np.argmax(output_data)]
+        print("==========================================")
+
+        percentage = output_data.flatten()
+        print(percentage)
+        percentage = percentage[np.argmax(output_data)]
 
         # Adding the label on frame
-        draw_label.__draw_label(frame, 'Label: {}'.format(predicted_weather), (30, 30), (255, 255, 0))
+        draw_label.__draw_label(frame, 'Label: {}  {:.2f}%'.format(predicted_weather, percentage), (30, 30), (255, 255, 0))
 
 
         # Display the resulting frame

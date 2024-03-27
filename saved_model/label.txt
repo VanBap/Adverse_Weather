@@ -1,0 +1,7 @@
+Cloudy
+Fog
+Rainy
+Sandy
+Shine
+Snowy
+Sunrise

@@ -2,7 +2,7 @@ from imutils.video import VideoStream
 from imutils.video import FPS
 from tensorflow import keras
 import numpy as np
-from tensorflow.keras.applications.resnet import preprocess_input
+from keras.applications.resnet import preprocess_input
 import tensorflow as tf
 import argparse
 import imutils
@@ -10,6 +10,8 @@ import time
 import cv2
 from keras.models import load_model
 import draw_label
+
+
 
 if __name__ == "__main__":
     # load model
@@ -47,6 +49,7 @@ if __name__ == "__main__":
 
         percentage = prediction.numpy()
         percentage = percentage.flatten()
+        print(percentage)
         percentage = percentage[np.argmax(percentage)]*100
         print("$$$$$$$$$$$$$$$$$$$")
         # 4) Adding the label on frame
